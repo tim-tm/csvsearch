@@ -101,7 +101,6 @@ public class CSVSearch {
         File file = new File(filename);
         if (file.createNewFile()) {
             System.out.printf("Datei: %s wurde erstellt!\n", filename);
-            return;
         }
 
         FileWriter writer = new FileWriter(file);
@@ -204,6 +203,7 @@ public class CSVSearch {
 
     public enum CSVSortAlgorithms {
         QUICKSORT(new CSVQuickSort()),
+        MERGESORT(new CSVMergeSort()),
         BUBBLESORT(new CSVBubbleSort()),
         SELECTIONSORT(new CSVSelectionSort());
 

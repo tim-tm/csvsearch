@@ -25,8 +25,8 @@ public class CSVSearchTest extends TestCase {
                 assertNotNull(search);
                 search.parseCSV("adressdaten.csv");
                 System.out.println(search.findBy("Müller", 0));
-                search.writeCSV("adressdaten_out.csv");
-            
+                search.writeCSV("target/adressdaten_" + salgo.getClass().getSimpleName() + "_" + sealgo.getClass().getSimpleName() + ".csv");
+
                 double stime = salgo.timer.getTime() / 1E+6;
                 double setime = sealgo.timer.getTime() / 1E+6;
                 System.out.println(salgo.getClass().getName() + ": " + stime + "ms");
