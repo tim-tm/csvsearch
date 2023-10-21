@@ -8,16 +8,16 @@ public class CSVTimer {
     private long lastTime;
 
     public CSVTimer() {
-        this.time = System.currentTimeMillis();
+        this.time = System.nanoTime();
         this.lastTime = 0;
     }
 
     public void resetTime() {
-        this.lastTime = System.currentTimeMillis();
+        this.lastTime = System.nanoTime();
     }
 
     public void updateTime() {
-        this.time = System.currentTimeMillis() - this.lastTime;
+        this.time = System.nanoTime() - this.lastTime;
     }
 
     public long getTime() {

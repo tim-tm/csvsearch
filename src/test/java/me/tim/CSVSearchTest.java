@@ -3,13 +3,12 @@ package me.tim;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import me.tim.CSVSearch.CSVSearchAlgorithms;
+import me.tim.CSVSearch.CSVSortAlgorithms;
 
 public class CSVSearchTest extends TestCase {
-    private final CSVSearch search;
-
     public CSVSearchTest(String testName) {
         super(testName);
-        this.search = new CSVSearch();
     }
 
     public static Test suite() {
@@ -17,12 +16,22 @@ public class CSVSearchTest extends TestCase {
     }
 
     public void testCSVSearch() throws Exception {
-        assertNotNull(this.search);
-        this.search.parseCSV("adressdaten.csv");
-        System.out.println(this.search.findBy("Müller", 0));
-        this.search.writeCSV("adressdaten_out.csv");
-    
-        System.out.println("Sort: " + this.search.getSortAlgorithm().timer.getTime() + "ms");
-        System.out.println("Search: " + this.search.getSearchAlgorithm().timer.getTime() + "ms");
+        for (CSVSortAlgorithms values : CSVSortAlgorithms.values()) {
+            CSVSortAlgorithm salgo = values.getAlgo();
+            for (CSVSearchAlgorithms values2 : CSVSearchAlgorithms.values()) {
+                CSVSearchAlgorithm sealgo = values2.getAlgo();
+                
+                CSVSearch search = new CSVSearch(salgo, sealgo);
+                assertNotNull(search);
+                search.parseCSV("adressdaten.csv");
+                System.out.println(search.findBy("Müller", 0));
+                search.writeCSV("adressdaten_out.csv");
+            
+                double stime = salgo.timer.getTime() / 1E+6;
+                double setime = sealgo.timer.getTime() / 1E+6;
+                System.out.println(salgo.getClass().getName() + ": " + stime + "ms");
+                System.out.println(sealgo.getClass().getName() + ": " + setime + "ms");
+            }
+        }
     }
 }

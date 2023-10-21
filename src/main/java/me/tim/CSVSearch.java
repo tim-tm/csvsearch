@@ -2,11 +2,9 @@ package me.tim;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-import me.tim.impl.CSVBinarySearch;
-import me.tim.impl.CSVQuickSort;
+import me.tim.impl.*;
 
 public class CSVSearch {
     private final ArrayList<CSVLine> lines;
@@ -28,7 +26,7 @@ public class CSVSearch {
     }
 
     public CSVSearch() {
-        this(new CSVQuickSort(), new CSVBinarySearch());
+        this(CSVSortAlgorithms.QUICKSORT.getAlgo(), CSVSearchAlgorithms.BINARYSEARCH.getAlgo());
     }
 
     /**
@@ -201,6 +199,37 @@ public class CSVSearch {
         public CSVLine(int number) {
             this.objects = new ArrayList<>();
             this.number = number;
+        }
+    }
+
+    public enum CSVSortAlgorithms {
+        QUICKSORT(new CSVQuickSort()),
+        BUBBLESORT(new CSVBubbleSort()),
+        SELECTIONSORT(new CSVSelectionSort());
+
+        private final CSVSortAlgorithm algo;
+
+        CSVSortAlgorithms(CSVSortAlgorithm algo) {
+            this.algo = algo;
+        }
+
+        public CSVSortAlgorithm getAlgo() {
+            return algo;
+        }
+    }
+    
+    public enum CSVSearchAlgorithms {
+        BINARYSEARCH(new CSVBinarySearch()),
+        LINEARSEARCH(new CSVLinearSearch());
+
+        private final CSVSearchAlgorithm algo;
+
+        CSVSearchAlgorithms(CSVSearchAlgorithm algo) {
+            this.algo = algo;
+        }
+
+        public CSVSearchAlgorithm getAlgo() {
+            return algo;
         }
     }
 }
